@@ -1,4 +1,5 @@
 import re
+import shutil
 import sys
 
 
@@ -51,6 +52,28 @@ def raw_to_cdn(url, cdn_type="cdn"):
     return url
 
 
+def add_repo_info(filename, repo_info, update_time=None):
+    """在文件最上方添加或更新仓库信息和更新时间"""
+    with open(filename, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # 移除已有的 repo 信息，避免重复
+    content = re.sub(r"^# repo:.*\n?", "", content, flags=re.MULTILINE)
+    # 移除已有的 update 信息，避免重复
+    content = re.sub(r"^# update:.*\n?", "", content, flags=re.MULTILINE)
+
+    # 构造新的头部信息
+    header = ""
+    if update_time:
+        header += f"# update: {update_time}\n"
+    header += f"# repo: {repo_info}\n"
+
+    # 写回文件
+    content = header + content
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
 def process_file(filename, cdn_type="cdn"):
     if "-cdn" in filename:
         mode = "cdn2raw"
@@ -66,10 +89,9 @@ def process_file(filename, cdn_type="cdn"):
         content = f.read()
 
     # 更新编辑时间, 同步自身和目标文件
-    # 匹配 # update: YYYY-MM-DD HH:MM:SS
     update_time = re.search(r"# update: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", content)
+    current_time = None
     if update_time:
-        # 替换更新时间为当前时间
         from datetime import datetime
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -78,7 +100,6 @@ def process_file(filename, cdn_type="cdn"):
             f"# update: {current_time}",
             content,
         )
-        # 修改自身更新时间
         with open(filename, "w", encoding="utf-8") as f:
             f.write(content)
 
@@ -103,16 +124,12 @@ def process_file(filename, cdn_type="cdn"):
             lambda m: cdn_to_raw(m.group()),
             content,
         )
-
-        # 只有最终是 raw.githubusercontent.com 的“独立 URL”才加 github proxy 前缀
-        # 前面允许是行首、空白或逗号，避免误伤嵌套 URL
         content = re.sub(
-            r'(^|[\s,])(https://raw\.githubusercontent\.com/[^\s]+)',
+            r"(^|[\s,])(https://raw\.githubusercontent\.com/[^\s]+)",
             lambda m: m.group(1) + "https://gh-proxy.org/" + m.group(2),
             content,
             flags=re.MULTILINE,
         )
-
     else:
         # 替换所有raw为CDN
         content = re.sub(
@@ -130,10 +147,24 @@ def process_file(filename, cdn_type="cdn"):
         f.write(content)
     print(f"已生成: {outname}")
 
+    # 在所有生成的文件最上方添加仓库信息和更新时间
+    add_repo_info(outname, "https://github.com/sinspired/proxy-rules 定制规则", current_time)
+
+    # 复制生成 Sinspired_Rules_CDN.yaml
+    shutil.copy("clash-cdn.yaml", "Sinspired_Rules_CDN.yaml")
+    add_repo_info(
+        "Sinspired_Rules_CDN.yaml",
+        "https://github.com/sinspired/subs-check-pro 内置规则",
+        current_time,
+    )
+    print("已额外生成: Sinspired_Rules_CDN.yaml")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("用法: python convert2cdn.py 文件名 [cdn类型, 默认cdn, 可选值: cdn, testingcf]")
+        print(
+            "用法: python convert2cdn.py 文件名 [cdn类型, 默认cdn, 可选值: cdn, testingcf]"
+        )
     else:
         cdn_type = sys.argv[2] if len(sys.argv) > 2 else "cdn"
         process_file(sys.argv[1], cdn_type)
