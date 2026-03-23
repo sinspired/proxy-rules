@@ -1,4 +1,4 @@
-# update: 2026-02-07 11:47:30
+# update: 2026-03-23 18:48:29
 # repo: https://github.com/sinspired/proxy-rules 定制规则
 
 ### 全局配置
@@ -659,6 +659,7 @@ proxy-groups:
       - TikTok
       - Youtube
       - Gemini
+      - Copilot
       - Twitter优选
       - 手动选择
   - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
@@ -721,6 +722,7 @@ proxy-groups:
     proxies:
       - OpenAI
       - Gemini
+      - Copilot
       - AUTO
   - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Twitter.png
     name: Twitter
@@ -729,6 +731,7 @@ proxy-groups:
       - Twitter优选
       - OpenAI
       - Gemini
+      - Copilot
       - PROXY
       - AUTO
       - HK AUTO
@@ -789,6 +792,18 @@ proxy-groups:
     interval: 600
     tolerance: 100
     url: https://www.gstatic.com/generate_204
+    lazy: false
+    max-failed-times: 3
+    expected-status: 204
+  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
+    include-all: true
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)(?=.*\Copilot\b|\CP\b)
+    name: Copilot
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://cp.cloudflare.com/generate_204
     lazy: false
     max-failed-times: 3
     expected-status: 204
@@ -983,9 +998,9 @@ rules:
   - "RULE-SET,youtube,Youtube"
   - "RULE-SET,gemini,Gemini"
   - "RULE-SET,openai,OpenAI"
+  - "RULE-SET,copilot,Copilot"
   - "RULE-SET,claude,AI"
   - "RULE-SET,bing,Bing"
-  - "RULE-SET,copilot,AI"
   - "RULE-SET,cloudflare-cn,DIRECT"
   - "RULE-SET,cloudflare,OpenAI"
   - "RULE-SET,twitter,Twitter"
