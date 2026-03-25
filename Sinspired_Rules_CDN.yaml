@@ -1,4 +1,4 @@
-# update: 2026-03-24 21:54:31
+# update: 2026-03-25 21:07:09
 # repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 ### 全局配置
@@ -710,6 +710,7 @@ proxy-groups:
     proxies:
       - PROXY
       - Youtube
+      - Gemini
       - AUTO
       - HK AUTO
       - JP AUTO
@@ -744,6 +745,7 @@ proxy-groups:
     type: select
     proxies:
       - DIRECT
+      - Copilot
       - PROXY
       - AI
       - AUTO
@@ -795,6 +797,14 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
+  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Bing.png
+    name: Copilot Select
+    type: select
+    proxies:
+      - OpenAI
+      - Gemini
+      - Copilot
+      - AUTO
   - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
@@ -998,7 +1008,7 @@ rules:
   - "RULE-SET,youtube,Youtube"
   - "RULE-SET,gemini,Gemini"
   - "RULE-SET,openai,OpenAI"
-  - "RULE-SET,copilot,Copilot"
+  - "RULE-SET,copilot,Copilot Select"
   - "RULE-SET,claude,AI"
   - "RULE-SET,bing,Bing"
   - "RULE-SET,cloudflare-cn,DIRECT"
