@@ -1,4 +1,4 @@
-# update: 2026-03-25 21:07:09
+# update: 2026-03-27 19:48:26
 # repo: github.com/sinspired/proxy-rules 定制规则
 
 ### 全局配置
@@ -797,7 +797,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bing.png
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Copilot.png
     name: Copilot Select
     type: select
     proxies:

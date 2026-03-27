@@ -1,4 +1,4 @@
-# update: 2026-03-25 21:07:09
+# update: 2026-03-27 19:48:26
 # repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 ### 全局配置
@@ -797,7 +797,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Bing.png
+  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     name: Copilot Select
     type: select
     proxies:
