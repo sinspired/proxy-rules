@@ -1,4 +1,4 @@
-# update: 2026-03-31 15:33:22
+# update: 2026-03-31 15:44:42
 # repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
@@ -423,7 +423,7 @@ dns:
     "geosite:gfw":
       - https://cloudflare-dns.com/dns-query#h3=true
       - https://dns.google/dns-query#h3=true
-      
+
   # DNS 主要域名配置
   # 支持 UDP，TCP，DoT，DoH，DoQ
   # 这部分为主要 DNS 配置，影响所有直连，确保使用对大陆解析精准的 DNS
@@ -706,24 +706,6 @@ proxy-groups:
       - Copilot
       - Twitter优选
       - 手动选择
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
-    include-all: false
-    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    name: TikTok
-    type: select
-    proxies:
-      - TIKTOK-VN
-      - TIKTOK-US
-      - TIKTOK-JP
-      - TIKTOK-SG
-      - TIKTOK-TW
-      # - 手动选择|TT
-      # - TIKTOK-KR
-      # - TIKTOK-GB
-      # - TIKTOK-CA
-      # - TIKTOK-DE
-      # - TIKTOK-NL
-      # - TIKTOK-RU
   - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Available.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
@@ -793,6 +775,32 @@ proxy-groups:
       - PROXY
       - AI
       - AUTO
+  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
+    name: Copilot Select
+    type: select
+    proxies:
+      - Copilot
+      - OpenAI
+      - Gemini
+      - AUTO
+  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
+    include-all: false
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    name: TikTok
+    type: select
+    proxies:
+      - TIKTOK-VN
+      - TIKTOK-US
+      - TIKTOK-JP
+      - TIKTOK-SG
+      - TIKTOK-TW
+      # - 手动选择|TT
+      # - TIKTOK-KR
+      # - TIKTOK-GB
+      # - TIKTOK-CA
+      # - TIKTOK-DE
+      # - TIKTOK-NL
+      # - TIKTOK-RU
   - icon: https://cdn.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Spotify.png
     name: Spotify
     type: select
@@ -842,14 +850,6 @@ proxy-groups:
     max-failed-times: 3
     expected-status: 204
   - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
-    name: Copilot Select
-    type: select
-    proxies:
-      - OpenAI
-      - Gemini
-      - Copilot
-      - AUTO
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bCopilot\b|copilot|\bCP\b)
@@ -873,7 +873,6 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-
   - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
