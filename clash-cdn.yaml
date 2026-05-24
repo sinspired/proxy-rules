@@ -1,4 +1,4 @@
-# update: 2026-03-31 17:17:00
+# update: 2026-05-24 10:33:42
 # repo: https://github.com/sinspired/proxy-rules 定制规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
@@ -533,28 +533,28 @@ geo-update-interval: 48 # 更新间隔，单位：小时
 
 rule-providers:
   private:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.yaml
     path: ./ruleset/private.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   unBanAD:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Direct/Direct.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Direct/Direct.yaml
     path: ./ruleset/direct.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   ban_ad:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising.yaml
     path: ./ruleset/ban_ad.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   ban_program_ad:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanProgramAD.list
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/BanProgramAD.list
     path: ./ruleset/ban_program_ad.list
     behavior: classical
     interval: 86400
@@ -562,168 +562,168 @@ rule-providers:
     type: http
 
   lan:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Lan/Lan.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Lan/Lan.yaml
     path: ./ruleset/lan.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   tiktok:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/classical/tiktok.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/classical/tiktok.yaml
     path: ./ruleset/tiktok.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   tiktok_external:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TikTok/TikTok.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TikTok/TikTok.yaml
     path: ./ruleset/tiktok_external.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   spotify:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spotify/Spotify.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spotify/Spotify.yaml
     path: ./ruleset/spotify.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   cn_domain:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.yaml
     path: ./ruleset/cn_domain.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   telegram_domain:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.yaml
     path: ./ruleset/telegram_domain.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   google_domain:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.yaml
     path: ./ruleset/google_domain.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   geolocation-!cn:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.yaml
     path: ./ruleset/geolocation-!cn.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   cn_ip:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.yaml
     path: ./ruleset/cn_ip.yaml
     behavior: ipcidr
     interval: 86400
     format: yaml
     type: http
   telegram_ip:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.yaml
     path: ./ruleset/telegram_ip.yaml
     behavior: ipcidr
     interval: 86400
     format: yaml
     type: http
   google_ip:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.yaml
     path: ./ruleset/google_ip.yaml
     behavior: ipcidr
     interval: 86400
     format: yaml
     type: http
   bing:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bing/Bing.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bing/Bing.yaml
     path: ./ruleset/bing.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   copilot:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot.yaml
     path: ./ruleset/copilot.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   claude:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml
     path: ./ruleset/claude.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   openai:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./ruleset/openai.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   gemini:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Gemini/Gemini.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Gemini/Gemini.yaml
     path: ./ruleset/gemini.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   youtube:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml
     path: ./ruleset/youtube.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   twitter:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitter/Twitter.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitter/Twitter.yaml
     path: ./ruleset/twitter.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   steam:
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Steam/Steam.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Steam/Steam.yaml
     path: ./ruleset/steam.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   OneDrive:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/OneDrive.list
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/OneDrive.list
     path: ./ruleset/OneDrive.list
     behavior: classical
     interval: 86400
     format: text
     type: http
   NetEaseMusic:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/NetEaseMusic.list
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/NetEaseMusic.list
     path: ./ruleset/NetEaseMusic.list
     behavior: classical
     interval: 86400
     format: text
     type: http
   Download:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Download.list
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Download.list
     path: ./ruleset/Download.list
     behavior: classical
     interval: 86400
     format: text
     type: http
   cloudflare:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare.yaml
     path: ./ruleset/cloudflare.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   cloudflare-cn:
-    url: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare-cn.yaml
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare-cn.yaml
     path: ./ruleset/cloudflare-cn.yaml
     behavior: domain
     interval: 86400
@@ -731,7 +731,7 @@ rule-providers:
     type: http
 # 代理组
 proxy-groups:
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Static.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Static.png
     include-all: false
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     name: PROXY
@@ -750,20 +750,20 @@ proxy-groups:
       - Copilot
       - Twitter优选
       - 手动选择
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Available.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Available.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     name: 手动选择
     type: select
     proxies:
       - AUTO
-  # - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
   #   include-all: true
   #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
   #   filter: (?i)^(?=.*T(?:K))
   #   name: 手动选择|TT
   #   type: select
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Urltest.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Urltest.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
     name: AUTO
@@ -774,7 +774,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Google.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Google.png
     name: Google
     type: select
     proxies:
@@ -787,7 +787,7 @@ proxy-groups:
       - US AUTO
       - TW AUTO
       - SG AUTO
-  - icon: https://cdn.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/AI.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/AI.png
     name: AI
     type: select
     proxies:
@@ -795,7 +795,7 @@ proxy-groups:
       - Gemini
       - Copilot
       - AUTO
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Twitter.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Twitter.png
     name: Twitter
     type: select
     proxies:
@@ -810,7 +810,7 @@ proxy-groups:
       - US AUTO
       - TW AUTO
       - SG AUTO
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Bing.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Bing.png
     name: Bing
     type: select
     proxies:
@@ -819,7 +819,7 @@ proxy-groups:
       - PROXY
       - AI
       - AUTO
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     name: Copilot Select
     type: select
     proxies:
@@ -827,7 +827,7 @@ proxy-groups:
       - OpenAI
       - Gemini
       - AUTO
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
     include-all: false
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     name: TikTok
@@ -845,7 +845,7 @@ proxy-groups:
       # - TIKTOK-DE
       # - TIKTOK-NL
       # - TIKTOK-RU
-  - icon: https://cdn.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Spotify.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Spotify.png
     name: Spotify
     type: select
     proxies:
@@ -856,7 +856,7 @@ proxy-groups:
       - SG AUTO
       - PROXY
       - DIRECT
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/Telegram.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Telegram.png
     name: Telegram
     type: select
     proxies:
@@ -869,7 +869,7 @@ proxy-groups:
       - PROXY
 
   # 关键词筛选
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/OpenAI.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/OpenAI.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)
@@ -881,7 +881,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Gemini.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Gemini.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
@@ -893,7 +893,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bCopilot\b|copilot|\bCP\b)
@@ -905,7 +905,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bYoutube\b|youtube|YT|YouTube|流媒体)
@@ -917,7 +917,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bX\b|twitter)
@@ -931,7 +931,7 @@ proxy-groups:
     expected-status: 204
 
   # TikTok地区筛选
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])US|TK-US))
@@ -943,7 +943,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])JP|TK-JP))
@@ -955,7 +955,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])VN|TK-VN))
@@ -967,7 +967,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])SG|TK-SG))
@@ -979,7 +979,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])TW|TK-TW))
@@ -991,7 +991,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  # - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
   #   include-all: true
   #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
   #   filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])KR|TK-KR))
@@ -999,7 +999,7 @@ proxy-groups:
   #   type: url-test
   #   interval: 600
   #   tolerance: 100
-  # - icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
   #   include-all: true
   #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
   #   filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])GB|TK-GB))
@@ -1009,7 +1009,7 @@ proxy-groups:
   #   tolerance: 100
 
   # 地区筛选
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:HK(?!⁻)|香港|港|Hong\s?Kong)\b
@@ -1021,7 +1021,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/TW.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/TW.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:TW(?!⁻)|台湾|台|tai)\b
@@ -1033,7 +1033,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/SG.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/SG.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:SG(?!⁻)|新加坡|新|sin)\b
@@ -1045,7 +1045,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/JP.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/JP.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:JP(?!⁻)|日本|日|JAPAN)\b
@@ -1057,7 +1057,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/US.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/US.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:US(?!⁻)|美国|美|American)\b
@@ -1069,7 +1069,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://cdn.jsdelivr.net/gh/Orz-3/mini@master/Color/KR.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/KR.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:KR(?!⁻)|韩国|韩|首尔)\b
