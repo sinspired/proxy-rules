@@ -1,5 +1,5 @@
-# update: 2026-06-25 16:47:44
-# repo: https://github.com/sinspired/proxy-rules 定制规则
+# update: 2026-06-25 16:48:01
+# repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
 
@@ -744,10 +744,6 @@ proxy-groups:
       - SG AUTO
       - US AUTO
       - AI
-      - TikTok
-      - Youtube
-      - Gemini
-      - Copilot
       - Twitter优选
       - 手动选择
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Available.png
@@ -757,12 +753,12 @@ proxy-groups:
     type: select
     proxies:
       - AUTO
-  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-  #   include-all: true
-  #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-  #   filter: (?i)^(?=.*T(?:K))
-  #   name: 手动选择|TT
-  #   type: select
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+    include-all: true
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)^(?=.*T(?:K))
+    name: 手动选择|TT
+    type: select
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Urltest.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
@@ -833,18 +829,7 @@ proxy-groups:
     name: TikTok
     type: select
     proxies:
-      - TIKTOK-VN
-      - TIKTOK-US
-      - TIKTOK-JP
-      - TIKTOK-SG
-      - TIKTOK-TW
-      # - 手动选择|TT
-      # - TIKTOK-KR
-      # - TIKTOK-GB
-      # - TIKTOK-CA
-      # - TIKTOK-DE
-      # - TIKTOK-NL
-      # - TIKTOK-RU
+      - 手动选择|TT
   - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Spotify.png
     name: Spotify
     type: select
@@ -955,58 +940,6 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-    include-all: true
-    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])VN|TK-VN))
-    name: TIKTOK-VN
-    type: url-test
-    interval: 600
-    tolerance: 100
-    url: https://www.gstatic.com/generate_204
-    lazy: true
-    max-failed-times: 3
-    expected-status: 204
-  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-    include-all: true
-    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])SG|TK-SG))
-    name: TIKTOK-SG
-    type: url-test
-    interval: 600
-    tolerance: 100
-    url: https://www.gstatic.com/generate_204
-    lazy: true
-    max-failed-times: 3
-    expected-status: 204
-  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-    include-all: true
-    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])TW|TK-TW))
-    name: TIKTOK-TW
-    type: url-test
-    interval: 600
-    tolerance: 100
-    url: https://www.gstatic.com/generate_204
-    lazy: true
-    max-failed-times: 3
-    expected-status: 204
-  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-  #   include-all: true
-  #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-  #   filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])KR|TK-KR))
-  #   name: TIKTOK-KR
-  #   type: url-test
-  #   interval: 600
-  #   tolerance: 100
-  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-  #   include-all: true
-  #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-  #   filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])GB|TK-GB))
-  #   name: TIKTOK-GB
-  #   type: url-test
-  #   interval: 600
-  #   tolerance: 100
 
   # 地区筛选
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png

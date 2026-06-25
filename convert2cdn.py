@@ -75,6 +75,8 @@ def add_repo_info(filename, repo_info, update_time=None):
 
 
 def process_file(filename, cdn_type="cdn"):
+    import os
+
     if "-cdn" in filename:
         mode = "cdn2raw"
         outname = filename.replace("-cdn", "-raw")
@@ -88,27 +90,22 @@ def process_file(filename, cdn_type="cdn"):
     with open(filename, encoding="utf-8") as f:
         content = f.read()
 
-    # 更新编辑时间, 同步自身和目标文件
+    # 更新编辑时间
     update_time = re.search(r"# update: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", content)
     current_time = None
     if update_time:
         from datetime import datetime
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        content = re.sub(
-            update_time.group(0),
-            f"# update: {current_time}",
-            content,
-        )
+        content = re.sub(update_time.group(0), f"# update: {current_time}", content)
         with open(filename, "w", encoding="utf-8") as f:
             f.write(content)
 
-    # 去除所有 github 代理前缀（包括 ghproxy.net 和 gh-proxy.org）
+    # 去除 GitHub 代理前缀
     content = re.sub(r"https://ghproxy\.net/", "", content)
     content = re.sub(r"https://gh-proxy\.org/", "", content)
 
     if mode == "cdn2raw":
-        # 替换所有CDN为raw
         content = re.sub(
             r"https://(?:cdn\.|testingcf\.)?jsdelivr\.net/gh/[^ \n]+",
             lambda m: cdn_to_raw(m.group()),
@@ -131,7 +128,6 @@ def process_file(filename, cdn_type="cdn"):
             flags=re.MULTILINE,
         )
     else:
-        # 替换所有raw为CDN
         content = re.sub(
             r"https://raw\.githubusercontent\.com/[^ \n]+",
             lambda m: raw_to_cdn(m.group(), cdn_type),
@@ -147,17 +143,33 @@ def process_file(filename, cdn_type="cdn"):
         f.write(content)
     print(f"已生成: {outname}")
 
-    # 在所有生成的文件最上方添加仓库信息和更新时间
-    add_repo_info(outname, "https://github.com/sinspired/proxy-rules 定制规则", current_time)
-
-    # 复制生成 Sinspired_Rules_CDN.yaml
-    shutil.copy("clash-cdn.yaml", "Sinspired_Rules_CDN.yaml")
     add_repo_info(
-        "Sinspired_Rules_CDN.yaml",
+        outname, "https://github.com/sinspired/proxy-rules 定制规则", current_time
+    )
+
+    # ✅ 动态推导 Sinspired_Rules_*.yaml 文件名
+    basename = os.path.basename(outname)
+    variant_match = re.match(r"clash-(.+?-)?cdn\.yaml", basename)
+    if variant_match:
+        variant_part = variant_match.group(1)  # "lite-" / "pro-" / None
+        if variant_part:
+            # "lite-" → "Lite"，"pro-extra-" → "Pro_Extra"
+            variant_str = "_".join(
+                p.capitalize() for p in variant_part.rstrip("-").split("-")
+            )
+            sinspired_name = f"Sinspired_Rules_{variant_str}_CDN.yaml"
+        else:
+            sinspired_name = "Sinspired_Rules_CDN.yaml"
+    else:
+        sinspired_name = "Sinspired_Rules_" + basename
+
+    shutil.copy(outname, sinspired_name)
+    add_repo_info(
+        sinspired_name,
         "https://github.com/sinspired/subs-check-pro 内置规则",
         current_time,
     )
-    print("已额外生成: Sinspired_Rules_CDN.yaml")
+    print(f"已额外生成: {sinspired_name}")
 
 
 if __name__ == "__main__":
