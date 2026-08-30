@@ -1,4 +1,4 @@
-# update: 2026-06-25 16:47:44
+# update: 2026-08-30 10:15:23
 # repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
@@ -21,12 +21,18 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
 #  - off, 不匹配进程，推荐在路由器上使用此模式
 find-process-mode: strict
 
-ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
+mode: rule
 
-### 全局配置
-profile:
-  store-selected: true
-  store-fake-ip: true
+#自定义 geodata url
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geoip.metadb"
+
+geo-auto-update: true # 是否自动更新 geodata
+geo-update-interval: 72 # 更新间隔，单位：小时
+
+ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 
 unified-delay: true # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差异
 tcp-concurrent: true # TCP 并发
@@ -48,6 +54,89 @@ hosts:
   dns.twnic.tw: 101.101.101.101
   ordns.he.net: 74.82.42.42
 
+### 全局配置
+profile:
+  # 存储 select 选择记录
+  store-selected: true
+  # 持久化 fake-ip
+  store-fake-ip: true
+
+# Tun 配置
+tun:
+  enable: false
+  stack: system # gvisor/mixed
+  dns-hijack:
+    - 0.0.0.0:53 # 需要劫持的 DNS
+  # auto-detect-interface: true # 自动识别出口网卡
+  # auto-route: true # 配置路由表
+  # mtu: 9000 # 最大传输单元
+  # gso: false # 启用通用分段卸载，仅支持 Linux
+  # gso-max-size: 65536 # 通用分段卸载包的最大大小
+  auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
+  # strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问
+  # disable-icmp-forwarding: true # 禁用 ICMP 转发，防止某些情况下的 ICMP 环回问题，ping 将不会显示真实的延迟
+  route-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 不匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
+    - google_ip
+  route-exclude-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
+    - lan
+    - private
+    - cn_ip
+  route-address: # 启用 auto-route 时使用自定义路由而不是默认路由
+    - 0.0.0.0/1
+    - 128.0.0.0/1
+    - "::/1"
+    - "8000::/1"
+
+  # Android 用户和应用规则仅在 Android 下被支持
+  # 并且需要 auto-route
+
+  # include-android-user: # 限制被路由的 Android 用户
+  # - 0
+  # - 10
+  # include-package: # 限制被路由的 Android 应用包名
+  # - com.android.chrome
+  # exclude-package: # 排除被路由的 Android 应用包名
+  # - com.android.captiveportallogin
+
+# 嗅探域名 可选配置
+sniffer:
+  enable: true
+  ## 对 redir-host 类型识别的流量进行强制嗅探
+  ## 如：Tun、Redir 和 TProxy 并 DNS 为 redir-host 皆属于
+  # force-dns-mapping: false
+  ## 对所有未获取到域名的流量进行强制嗅探
+  # parse-pure-ip: false
+  # 是否使用嗅探结果作为实际访问，默认 true
+  # 全局配置，优先级低于 sniffer.sniff 实际配置
+  override-destination: false
+  sniff: # TLS 和 QUIC 默认如果不配置 ports 默认嗅探 443
+    QUIC:
+    #  ports: [ 443 ]
+    TLS:
+    #  ports: [443, 8443]
+
+    # 默认嗅探 80
+    HTTP: # 需要嗅探的端口
+      ports: [80, 8080-8880]
+      # 可覆盖 sniffer.override-destination
+      override-destination: true
+  force-domain:
+    - +.v2ex.com
+  # skip-src-address: # 对于来源ip跳过嗅探
+  #   - 192.168.0.3/32
+  # skip-dst-address: # 对于目标ip跳过嗅探
+  #   - 192.168.0.3/32
+  ## 对嗅探结果进行跳过
+  # skip-domain:
+  #   - Mijia Cloud
+
+  # 仅对白名单中的端口进行嗅探，默认为 443，80
+  # 已废弃，若 sniffer.sniff 配置则此项无效
+  port-whitelist:
+    - "80"
+    - "443"
+    # - 8000-9999
+
 ntp:
   enable: false
   server: "time.apple.com"
@@ -55,7 +144,7 @@ ntp:
   interval: 30
   dialer-proxy: ""
   write-to-system: false
-  
+
 dns:
   enable: true
   # lru: Least Recently Used, 默认值
@@ -522,15 +611,6 @@ dns:
       - "+.openai.com"
       - "+.grok.com"
 
-#自定义 geodata url
-geox-url:
-  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
-
-geo-auto-update: true # 是否自动更新 geodata
-geo-update-interval: 48 # 更新间隔，单位：小时
-
 rule-providers:
   private:
     url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.yaml
@@ -744,11 +824,7 @@ proxy-groups:
       - SG AUTO
       - US AUTO
       - AI
-      - TikTok
-      - Youtube
-      - Gemini
-      - Copilot
-      - Twitter优选
+      - CF AUTO
       - 手动选择
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Available.png
     include-all: true
@@ -757,12 +833,12 @@ proxy-groups:
     type: select
     proxies:
       - AUTO
-  # - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
-  #   include-all: true
-  #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-  #   filter: (?i)^(?=.*T(?:K))
-  #   name: 手动选择|TT
-  #   type: select
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+    include-all: true
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)^(?=.*T(?:K))
+    name: 手动选择|TT
+    type: select
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Urltest.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
@@ -776,33 +852,58 @@ proxy-groups:
     expected-status: 204
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Google.png
     name: Google
-    type: select
+    type: fallback
     proxies:
       - PROXY
-      - Youtube
-      - Gemini
+      - Youtube AUTO
+      - Gemini AUTO
       - AUTO
       - HK AUTO
       - JP AUTO
       - US AUTO
       - TW AUTO
       - SG AUTO
+    url: https://www.gstatic.com/generate_204
+    interval: 300
   - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/AI.png
     name: AI
-    type: select
+    type: fallback
     proxies:
-      - OpenAI
-      - Gemini
-      - Copilot
+      - OpenAI AUTO
+      - Gemini AUTO
+      - Copilot AUTO
       - AUTO
-  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Twitter.png
-    name: Twitter
+      - 手动选择
+    url: "https://cp.cloudflare.com/generate_204"
+    interval: 300
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/OpenAI.png
+    name: OpenAI
+    type: fallback
+    proxies:
+      - OpenAI AUTO
+      - Gemini AUTO
+      - Copilot AUTO
+      - AUTO
+      - 手动选择
+    url: "https://cp.cloudflare.com/generate_204"
+    interval: 300
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Claude.png
+    name: Claude
     type: select
     proxies:
-      - Twitter优选
-      - OpenAI
-      - Gemini
-      - Copilot
+      - OpenAI AUTO
+      - 手动选择
+      - Gemini AUTO
+      - Copilot AUTO
+      - AUTO
+  - icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/x.png
+    name: Twitter
+    type: fallback
+    proxies:
+      - CF AUTO
+      - OpenAI AUTO
+      - Gemini AUTO
+      - Copilot AUTO
       - PROXY
       - AUTO
       - HK AUTO
@@ -810,22 +911,41 @@ proxy-groups:
       - US AUTO
       - TW AUTO
       - SG AUTO
+    url: "https://cp.cloudflare.com/generate_204"
+    interval: 300
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
+    name: CF
+    type: fallback
+    proxies:
+      - CF AUTO
+      - OpenAI AUTO
+      - Gemini AUTO
+      - Copilot AUTO
+      - PROXY
+      - AUTO
+      - HK AUTO
+      - JP AUTO
+      - US AUTO
+      - TW AUTO
+      - SG AUTO
+    url: "https://cp.cloudflare.com/generate_204"
+    interval: 300
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Bing.png
     name: Bing
     type: select
     proxies:
-      - DIRECT
       - Copilot
+      - DIRECT
       - PROXY
       - AI
       - AUTO
   - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
-    name: Copilot Select
-    type: select
+    name: Copilot
+    type: fallback
     proxies:
-      - Copilot
-      - OpenAI
-      - Gemini
+      - Copilot AUTO
+      - OpenAI AUTO
+      - Gemini AUTO
       - AUTO
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
     include-all: false
@@ -838,7 +958,8 @@ proxy-groups:
       - TIKTOK-JP
       - TIKTOK-SG
       - TIKTOK-TW
-      # - 手动选择|TT
+      - 手动选择|TT
+      - AUTO
       # - TIKTOK-KR
       # - TIKTOK-GB
       # - TIKTOK-CA
@@ -858,7 +979,7 @@ proxy-groups:
       - DIRECT
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Telegram.png
     name: Telegram
-    type: select
+    type: fallback
     proxies:
       - HK AUTO
       - JP AUTO
@@ -873,7 +994,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)
-    name: OpenAI
+    name: OpenAI AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -885,7 +1006,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
-    name: Gemini
+    name: Gemini AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -897,7 +1018,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bCopilot\b|copilot|\bCP\b)
-    name: Copilot
+    name: Copilot AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -909,7 +1030,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bYoutube\b|youtube|YT|YouTube|流媒体)
-    name: Youtube
+    name: Youtube AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -917,11 +1038,11 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bX\b|twitter)
-    name: Twitter优选
+    name: CF AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1092,14 +1213,14 @@ rules:
   - "RULE-SET,ban_program_ad,REJECT"
   - "RULE-SET,tiktok,TikTok"
   - "RULE-SET,tiktok_external,TikTok"
-  - "RULE-SET,youtube,Youtube"
-  - "RULE-SET,gemini,Gemini"
+  - "RULE-SET,youtube,Youtube AUTO"
+  - "RULE-SET,gemini,Gemini AUTO"
   - "RULE-SET,openai,OpenAI"
-  - "RULE-SET,copilot,Copilot Select"
-  - "RULE-SET,claude,AI"
+  - "RULE-SET,copilot,Copilot"
+  - "RULE-SET,claude,Claude"
   - "RULE-SET,bing,Bing"
   - "RULE-SET,cloudflare-cn,DIRECT"
-  - "RULE-SET,cloudflare,OpenAI"
+  - "RULE-SET,cloudflare,CF"
   - "RULE-SET,twitter,Twitter"
   - "RULE-SET,steam,PROXY"
   - "RULE-SET,spotify,Spotify"

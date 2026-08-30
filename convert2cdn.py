@@ -6,7 +6,7 @@ import sys
 def cdn_to_raw(url):
     # jsdelivr (包括 testingcf.jsdelivr.net)
     m = re.match(
-        r"https://(?:cdn\.|testingcf\.)?jsdelivr\.net/gh/([^/]+)/([^/@]+)@([^/]+)/(.*)",
+        r"https://(?:cdn\.|testingcf\.|fastly\.)?jsdelivr\.net/gh/([^/]+)/([^/@]+)@([^/]+)/(.*)",
         url,
     )
     if m:
@@ -26,6 +26,16 @@ def cdn_to_raw(url):
         user, repo, path = m.groups()
         path = path.replace("-cdn", "-raw")
         return f"https://raw.githubusercontent.com/{user}/{repo}/main/{path}"
+
+    # GitHub Releases
+    m = re.match(
+        r"https://github\.com/([^/]+)/([^/]+)/releases/download/([^/]+)/(.*)", url
+    )
+    if m:
+        owner, repo, tag, path = m.groups()
+        # Releases 文件只能从 github.com 下载，这里直接映射到 raw 格式
+        return f"https://raw.githubusercontent.com/{owner}/{repo}/{tag}/{path}"
+
     return url
 
 
@@ -49,6 +59,15 @@ def raw_to_cdn(url, cdn_type="cdn"):
         user, repo, path = m.groups()
         path = path.replace("-raw", "-cdn")
         return f"https://{cdn_type}.jsdelivr.net/gh/{user}/{repo}@main/{path}"
+    # GitHub Releases → jsdelivr
+    m = re.match(
+        r"https://github\.com/([^/]+)/([^/]+)/releases/download/([^/]+)/(.*)", url
+    )
+    if m:
+        owner, repo, tag, path = m.groups()
+        path = path.replace("-raw", "-cdn")
+        return f"https://{cdn_type}.jsdelivr.net/gh/{owner}/{repo}@{tag}/{path}"
+
     return url
 
 
@@ -106,35 +125,53 @@ def process_file(filename, cdn_type="cdn"):
     content = re.sub(r"https://gh-proxy\.org/", "", content)
 
     if mode == "cdn2raw":
+        # jsdelivr / fastly.jsdelivr
         content = re.sub(
-            r"https://(?:cdn\.|testingcf\.)?jsdelivr\.net/gh/[^ \n]+",
+            r"https://(?:cdn\.|testingcf\.|fastly\.)?jsdelivr\.net/gh/[^\s]+",
             lambda m: cdn_to_raw(m.group()),
             content,
         )
+        # fastgit
         content = re.sub(
-            r"https://raw\.fastgit\.org/[^ \n]+",
+            r"https://raw\.fastgit\.org/[^\s]+",
             lambda m: cdn_to_raw(m.group()),
             content,
         )
+        # github.io
         content = re.sub(
-            r"https://[a-zA-Z0-9-]+\.github\.io/[^ \n]+",
+            r"https://[a-zA-Z0-9-]+\.github\.io/[^\s]+",
             lambda m: cdn_to_raw(m.group()),
             content,
         )
+        # raw.githubusercontent.com → 加 gh-proxy 前缀
         content = re.sub(
             r"(^|[\s,])(https://raw\.githubusercontent\.com/[^\s]+)",
             lambda m: m.group(1) + "https://gh-proxy.org/" + m.group(2),
             content,
             flags=re.MULTILINE,
         )
-    else:
+        # GitHub Releases
         content = re.sub(
-            r"https://raw\.githubusercontent\.com/[^ \n]+",
+            r"https://github\.com/[^\s]+/releases/download/[^\s]+",
+            lambda m: cdn_to_raw(m.group()),
+            content,
+        )
+    else:
+        # raw.githubusercontent.com
+        content = re.sub(
+            r"https://raw\.githubusercontent\.com/[^\s]+",
             lambda m: raw_to_cdn(m.group(), cdn_type),
             content,
         )
+        # github.io
         content = re.sub(
-            r"https://[a-zA-Z0-9-]+\.github\.io/[^ \n]+",
+            r"https://[a-zA-Z0-9-]+\.github\.io/[^\s]+",
+            lambda m: raw_to_cdn(m.group(), cdn_type),
+            content,
+        )
+        # GitHub Releases
+        content = re.sub(
+            r"https://github\.com/[^\s]+/releases/download/[^\s]+",
             lambda m: raw_to_cdn(m.group(), cdn_type),
             content,
         )
