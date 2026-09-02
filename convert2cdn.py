@@ -93,6 +93,36 @@ def add_repo_info(filename, repo_info, update_time=None):
         f.write(content)
 
 
+def generate_sinspired_name(outname):
+    import os
+
+    basename = os.path.basename(outname)
+
+    if basename.startswith("clash-"):
+        # 提取 variant 部分
+        variant_match = re.match(r"clash(?:-(.+))?-cdn\.yaml", basename)
+        if variant_match:
+            variant_part = variant_match.group(1)  # None / "lite" / "pro-extra"
+            if variant_part:
+                variant_str = "-".join(p.capitalize() for p in variant_part.split("-"))
+                return f"Mihomo-Rules-{variant_str}-CDN.yaml"
+            else:
+                return "Mihomo-Rules-CDN.yaml"
+
+    elif basename.startswith("shadowrocket-"):
+        variant_match = re.match(r"shadowrocket(?:-(.+))?-cdn\.conf", basename)
+        if variant_match:
+            variant_part = variant_match.group(1)
+            if variant_part:
+                variant_str = "-".join(p.capitalize() for p in variant_part.split("-"))
+                return f"Shadowrocket-Rules-{variant_str}-CDN.conf"
+            else:
+                return "Shadowrocket-Rules-CDN.conf"
+
+    # 默认 fallback
+    return "Sinspired_Rules_" + basename
+
+
 def process_file(filename, cdn_type="cdn"):
     import os
 
@@ -185,28 +215,19 @@ def process_file(filename, cdn_type="cdn"):
     )
 
     # ✅ 动态推导 Sinspired_Rules_*.yaml 文件名
-    basename = os.path.basename(outname)
-    variant_match = re.match(r"clash-(.+?-)?cdn\.yaml", basename)
-    if variant_match:
-        variant_part = variant_match.group(1)  # "lite-" / "pro-" / None
-        if variant_part:
-            # "lite-" → "Lite"，"pro-extra-" → "Pro_Extra"
-            variant_str = "_".join(
-                p.capitalize() for p in variant_part.rstrip("-").split("-")
-            )
-            sinspired_name = f"Sinspired_Rules_{variant_str}_CDN.yaml"
-        else:
-            sinspired_name = "Sinspired_Rules_CDN.yaml"
-    else:
-        sinspired_name = "Sinspired_Rules_" + basename
+    sinspired_name = generate_sinspired_name(outname)
 
-    shutil.copy(outname, sinspired_name)
-    add_repo_info(
-        sinspired_name,
-        "https://github.com/sinspired/subs-check-pro 内置规则",
-        current_time,
-    )
-    print(f"已额外生成: {sinspired_name}")
+    # 避免 SameFileError：只有当目标文件名不同于源文件时才复制
+    if os.path.abspath(outname) != os.path.abspath(sinspired_name):
+        shutil.copy(outname, sinspired_name)
+        add_repo_info(
+            sinspired_name,
+            "https://github.com/sinspired/subs-check-pro 内置规则",
+            current_time,
+        )
+        print(f"已额外生成: {sinspired_name}")
+    else:
+        print(f"跳过额外生成，因为目标文件与源文件相同: {sinspired_name}")
 
 
 if __name__ == "__main__":
