@@ -1,16 +1,13 @@
-# update: 2026-08-30 10:15:23
-# repo: github.com/sinspired/proxy-rules 定制规则
+# update: 2026-09-02 14:15:23
+# repo: https://github.com/sinspired/proxy-rules 定制规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
-
 port: 7890 # HTTP(S) 代理服务器端口
 socks-port: 7891 # SOCKS5 代理端口
 mixed-port: 10801 # HTTP(S) 和 SOCKS 代理混合端口
-
 allow-lan: true # 允许局域网连接
-
 authentication: # http,socks 入口的验证用户名，密码
-  - "sinspired:sinspired"
+  - 'sinspired:sinspired'
 skip-auth-prefixes: # 设置跳过验证的 IP 段
   - 127.0.0.1/8
   - ::1/128
@@ -20,20 +17,17 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
 #  - strict, 默认，由 mihomo 判断是否开启
 #  - off, 不匹配进程，推荐在路由器上使用此模式
 find-process-mode: strict
-
 mode: rule
 
 #自定义 geodata url
 geox-url:
-  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
-  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb"
-
-geo-auto-update: true # 是否自动更新 geodata
+  geoip: 'https://gh-proxy.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat'
+  geosite: 'https://gh-proxy.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat'
+  mmdb: 'https://gh-proxy.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb'
+geo-auto-update: false # 是否自动更新 geodata
 geo-update-interval: 72 # 更新间隔，单位：小时
 
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
-
 unified-delay: true # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差异
 tcp-concurrent: true # TCP 并发
 
@@ -67,6 +61,7 @@ tun:
   stack: system # gvisor/mixed
   dns-hijack:
     - 0.0.0.0:53 # 需要劫持的 DNS
+
   # auto-detect-interface: true # 自动识别出口网卡
   # auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
@@ -74,6 +69,7 @@ tun:
   # gso-max-size: 65536 # 通用分段卸载包的最大大小
   auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
   # strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问
+
   # disable-icmp-forwarding: true # 禁用 ICMP 转发，防止某些情况下的 ICMP 环回问题，ping 将不会显示真实的延迟
   route-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 不匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
     - google_ip
@@ -84,20 +80,18 @@ tun:
   route-address: # 启用 auto-route 时使用自定义路由而不是默认路由
     - 0.0.0.0/1
     - 128.0.0.0/1
-    - "::/1"
-    - "8000::/1"
+    - '::/1'
+    - '8000::/1'
 
-  # Android 用户和应用规则仅在 Android 下被支持
-  # 并且需要 auto-route
-
-  # include-android-user: # 限制被路由的 Android 用户
-  # - 0
-  # - 10
-  # include-package: # 限制被路由的 Android 应用包名
-  # - com.android.chrome
-  # exclude-package: # 排除被路由的 Android 应用包名
-  # - com.android.captiveportallogin
-
+# Android 用户和应用规则仅在 Android 下被支持
+# 并且需要 auto-route
+# include-android-user: # 限制被路由的 Android 用户
+# - 0
+# - 10
+# include-package: # 限制被路由的 Android 应用包名
+# - com.android.chrome
+# exclude-package: # 排除被路由的 Android 应用包名
+# - com.android.captiveportallogin
 # 嗅探域名 可选配置
 sniffer:
   enable: true
@@ -114,14 +108,16 @@ sniffer:
     #  ports: [ 443 ]
     TLS:
     #  ports: [443, 8443]
-
     # 默认嗅探 80
     HTTP: # 需要嗅探的端口
-      ports: [80, 8080-8880]
+      ports:
+        - 80
+        - 8080-8880
       # 可覆盖 sniffer.override-destination
       override-destination: true
   force-domain:
     - +.v2ex.com
+
   # skip-src-address: # 对于来源ip跳过嗅探
   #   - 192.168.0.3/32
   # skip-dst-address: # 对于目标ip跳过嗅探
@@ -129,28 +125,29 @@ sniffer:
   ## 对嗅探结果进行跳过
   # skip-domain:
   #   - Mijia Cloud
-
   # 仅对白名单中的端口进行嗅探，默认为 443，80
   # 已废弃，若 sniffer.sniff 配置则此项无效
   port-whitelist:
-    - "80"
-    - "443"
+    - '80'
+    - '443'
     # - 8000-9999
 
 ntp:
   enable: false
-  server: "time.apple.com"
+  server: 'time.apple.com'
   port: 123
   interval: 30
-  dialer-proxy: ""
+  dialer-proxy: ''
   write-to-system: false
 
+# dns 设置
 dns:
   enable: true
+
   # lru: Least Recently Used, 默认值
   # arc: Adaptive Replacement Cache # 自适应替换缓存
   cache-algorithm: arc
-  listen: "0.0.0.0:1053"
+  listen: '0.0.0.0:1053'
   ipv6: true
   use-hosts: true
   use-system-hosts: true
@@ -159,23 +156,21 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
-    - "*.local"
-    - "*.lan"
-    - "*.localdomain"
-    - "*.home.arpa"
-    - "*.test"
-    - "*.invalid"
-    - "*.example"
-    - "localhost.ptlogin2.qq.com"
-    - "time.*.com"
-    - "ntp.*.com"
-    - "+.push.apple.com"
-    - "+.miwifi.com"
-    - "+.market.xiaomi.com"
-    - "geosite:cn"
-    - "geosite:private"
-    - "RULE-SET,cn_domain"
-    - "RULE-SET,private"
+    - '*.local'
+    - '*.lan'
+    - '*.localdomain'
+    - '*.home.arpa'
+    - '*.test'
+    - '*.invalid'
+    - '*.example'
+    - 'localhost.ptlogin2.qq.com'
+    - 'time.*.com'
+    - 'ntp.*.com'
+    - '+.push.apple.com'
+    - '+.miwifi.com'
+    - '+.market.xiaomi.com'
+    - 'geosite:cn'
+    - 'geosite:private'
 
   # 部分客户端，比如 clash party 还不支持
   # fake-ip-filter-mode: rule
@@ -188,7 +183,6 @@ dns:
   #   - DOMAIN-SUFFIX,test,real-ip
   #   - DOMAIN-SUFFIX,invalid,real-ip
   #   - DOMAIN-SUFFIX,example,real-ip
-
   #   # 2. 特定域名
   #   - DOMAIN,localhost.ptlogin2.qq.com,real-ip
   #   - DOMAIN-SUFFIX,push.apple.com,real-ip
@@ -196,21 +190,16 @@ dns:
   #   - DOMAIN-SUFFIX,market.xiaomi.com,real-ip
   #   - DOMAIN-KEYWORD,time,real-ip
   #   - DOMAIN-KEYWORD,ntp,real-ip
-
   #   # 3. 引入规则集
   #   - RULE-SET,cn_domain,real-ip
   #   - RULE-SET,private,real-ip
-
   #   - RULE-SET,geolocation-!cn,fake-ip
-
   #   # 4. 自定义的规则
   #   - DOMAIN,www.baidu.com,real-ip
   #   - DOMAIN-SUFFIX,qq.com,real-ip
   #   - DOMAIN-SUFFIX,jd.com,real-ip
-
   #   # 5. 默认行为
   #   - MATCH,fake-ip
-
   prefer-h3: true
   dns-hijack:
     - any:53
@@ -226,6 +215,7 @@ dns:
     - system # append DNS server from system configuration. If not found, it would print an error log and skip.
   nameserver-policy:
     +.local: system
+
     # > BiliBili
     # BiliBili upos视频服务器（阿里云）
     +.upos-sz-mirrorali.bilivideo.com: https://dns.alidns.com/dns-query
@@ -241,6 +231,7 @@ dns:
     +.upos-sz-upcdnbd??.bilivideo.com: 180.76.76.76
     # BiliBili upos视频服务器（腾讯云）
     +.upos-sz-upcdntx.bilivideo.com: https://doh.pub/dns-query
+
     +.uc.cn: quic://dns.alidns.com:853
     +.alibaba.com: quic://dns.alidns.com:853
     +.alicdn.com: quic://dns.alidns.com:853
@@ -485,6 +476,7 @@ dns:
     +.qh-cdn.com: https://doh.360.cn/dns-query
     +.baomitu.com: https://doh.360.cn/dns-query
     +.qiku.com: https://doh.360.cn/dns-query
+
     # > 🇨🇳 CHN
     # CNNIC SDNS
     # 中国政府网
@@ -545,15 +537,18 @@ dns:
       # 腾讯
       - https://doh.pub/dns-query#h3=true
       - system
+
     # 国外
     geosite:gfw:
       - https://cloudflare-dns.com/dns-query#h3=true
       - https://dns.google/dns-query#h3=true
+
     # 广告
-    geosite:category-ads-all: "rcode://success"
+    geosite:category-ads-all: 'rcode://success'
     www.baidu.com,+.google.cn:
-      - "223.5.5.5"
-      - "https://dns.alidns.com/dns-query"
+      - '223.5.5.5'
+      - 'https://dns.alidns.com/dns-query'
+
   # DNS 主要域名配置
   # 支持 UDP，TCP，DoT，DoH，DoQ
   # 这部分为主要 DNS 配置，影响所有直连，确保使用对大陆解析精准的 DNS
@@ -566,15 +561,16 @@ dns:
     - https://mozilla.cloudflare-dns.com/dns-query#DNS&h3=true # 指定策略组和使用 HTTP/3
     - dhcp://en0 # dns from dhcp
     - quic://dns.adguard.com:784 # DNS over QUIC
-    # - '8.8.8.8#RULES' # 效果同respect-rules，但仅对该服务器生效
-    # - '8.8.8.8#en0' # 兼容指定 DNS 出口网卡
+
+  # - '8.8.8.8#RULES' # 效果同respect-rules，但仅对该服务器生效
+  # - '8.8.8.8#en0' # 兼容指定 DNS 出口网卡
   proxy-server-nameserver:
     - quic://223.5.5.5:853
     - https://dns.alidns.com/dns-query#h3=true
     - https://doh.pub/dns-query#h3=true
   direct-nameserver:
-    #- quic://223.5.5.5:853
-    #- quic://223.6.6.6:853
+    - quic://223.5.5.5:853
+    - quic://223.6.6.6:853
     - system
   direct-nameserver-follow-policy: true # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效
   fallback:
@@ -584,9 +580,11 @@ dns:
     - https://8.8.4.4/dns-query#h3=true
     - tls://8.8.4.4
     - tls://1.1.1.1
+
   # 后备域名解析服务器筛选，满足条件的将使用 fallback结果或只使用 fallback解析
   fallback-filter:
     geoip: true
+
     # 可选值为 国家缩写，默认值为 CN,除了 geoip-code 配置的国家 IP, 其他的 IP 结果会被视为污染,geoip-code 配置的国家的结果会直接采用，否则将采用 fallback结果
     geoip-code: CN
     ipcidr: #书写内容为 IP/掩码,这些网段的结果会被视为污染，nameserver 解析出这些结果时将会采用 fallback的解析结果
@@ -597,134 +595,92 @@ dns:
       - 106.74.25.198/32
       - 183.192.65.101/32
     domain: # 这些域名被视为已污染，匹配到这些域名，会直接使用 fallback解析，不去使用 nameserver
-      - "+.google.com"
-      - "+.youtube.com"
-      - "+.twitter.com"
-      - "+.x.com"
-      - "+.reddit.com"
-      - "+.telegram.org"
-      - "+.instagram.com"
-      - "+.facebook.com"
-      - "+.jsdelivr.net"
-      - "+.proton.me"
-      - "+.chatgpt.com"
-      - "+.openai.com"
-      - "+.grok.com"
+      - '+.google.com'
+      - '+.youtube.com'
+      - '+.twitter.com'
+      - '+.x.com'
+      - '+.reddit.com'
+      - '+.telegram.org'
+      - '+.instagram.com'
+      - '+.facebook.com'
+      - '+.jsdelivr.net'
+      - '+.proton.me'
+      - '+.chatgpt.com'
+      - '+.openai.com'
+      - '+.grok.com'
 
 rule-providers:
-  private:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
-    path: ./ruleset/private.yaml
+  alipay:
+    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AliPay/AliPay.yaml
+    path: ./ruleset/alipay.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  apple-intelligence:
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-apple-intelligence.mrs
     type: http
-  unBanAD:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
-    path: ./ruleset/direct.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  ban_ad:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.yaml
-    path: ./ruleset/ban_ad.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  ban_program_ad:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
-    path: ./ruleset/ban_program_ad.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-
-  lan:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
-    path: ./ruleset/lan.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  tiktok:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/tiktok.yaml
-    path: ./ruleset/tiktok.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  tiktok_external:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml
-    path: ./ruleset/tiktok_external.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  spotify:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
-    path: ./ruleset/spotify.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  cn_domain:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml
-    path: ./ruleset/cn_domain.yaml
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-intelligence.mrs'
+    path-in-bundle: 'geo/geosite/apple-intelligence.mrs'
+  apple-tvplus:
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-apple-tvplus.mrs
     type: http
-  telegram_domain:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml
-    path: ./ruleset/telegram_domain.yaml
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-tvplus.mrs'
+    path-in-bundle: 'geo/geosite/apple-tvplus.mrs'
+  youku-intl:
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-youku-intl.mrs
     type: http
-  google_domain:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml
-    path: ./ruleset/google_domain.yaml
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youku@!cn.mrs'
+    path-in-bundle: 'geo/geosite/youku@!cn.mrs'
+  tencent-intl:
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-tencent-intl.mrs
     type: http
-  geolocation-!cn:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml
-    path: ./ruleset/geolocation-!cn.yaml
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tencent@!cn.mrs'
+    path-in-bundle: 'geo/geosite/tencent@!cn.mrs'
+  iqiyi-intl:
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-iqiyi-intl.mrs
     type: http
-  cn_ip:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml
-    path: ./ruleset/cn_ip.yaml
-    behavior: ipcidr
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/iqiyi@!cn.mrs'
+    path-in-bundle: 'geo/geosite/iqiyi@!cn.mrs'
+  anthropic:
+    behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-anthropic.mrs
     type: http
-  telegram_ip:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml
-    path: ./ruleset/telegram_ip.yaml
-    behavior: ipcidr
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.mrs'
+    path-in-bundle: 'geo/geosite/anthropic.mrs'
+  openai:
+    behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-openai.mrs
     type: http
-  google_ip:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.yaml
-    path: ./ruleset/google_ip.yaml
-    behavior: ipcidr
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs'
+    path-in-bundle: 'geo/geosite/openai.mrs'
+  google-gemini:
+    behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-google-gemini.mrs
     type: http
-  bing:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
-    path: ./ruleset/bing.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs'
+    path-in-bundle: 'geo/geosite/google-gemini.mrs'
   copilot:
     url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
     path: ./ruleset/copilot.yaml
@@ -732,83 +688,31 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
-  claude:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
-    path: ./ruleset/claude.yaml
-    behavior: classical
+  bing:
+    behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-bing.mrs
     type: http
-  openai:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
-    path: ./ruleset/openai.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  gemini:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml
-    path: ./ruleset/gemini.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  youtube:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
-    path: ./ruleset/youtube.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bing.mrs'
+    path-in-bundle: 'geo/geosite/bing.mrs'
   twitter:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
-    path: ./ruleset/twitter.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  steam:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
-    path: ./ruleset/steam.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  OneDrive:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/OneDrive.list
-    path: ./ruleset/OneDrive.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  NetEaseMusic:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/NetEaseMusic.list
-    path: ./ruleset/NetEaseMusic.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  Download:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list
-    path: ./ruleset/Download.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  cloudflare:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cloudflare.yaml
-    path: ./ruleset/cloudflare.yaml
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-twitter.mrs
     type: http
-  cloudflare-cn:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cloudflare-cn.yaml
-    path: ./ruleset/cloudflare-cn.yaml
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs'
+    path-in-bundle: 'geo/geosite/twitter.mrs'
+  tiktok:
     behavior: domain
     interval: 86400
-    format: yaml
+    path: ./rule-set/geosite-tiktok.mrs
     type: http
+    format: mrs
+    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs'
+    path-in-bundle: 'geo/geosite/tiktok.mrs'
+
 # 代理组
 proxy-groups:
   - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Static.png
@@ -817,29 +721,278 @@ proxy-groups:
     name: PROXY
     type: select
     proxies:
-      - AUTO
-      - HK AUTO
-      - JP AUTO
-      - TW AUTO
-      - SG AUTO
-      - US AUTO
-      - AI
-      - CF AUTO
-      - 手动选择
+      - 'AUTO'
+      - 'AI'
+      - 'Cloudflare'
+      - 'MANUAL'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'US-AUTO'
+      - 'DIRECT'
+    max-failed-times: 3
   - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Available.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    name: 手动选择
+    name: MANUAL
     type: select
     proxies:
       - AUTO
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
-    include-all: true
-    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?i)^(?=.*T(?:K))
-    name: 手动选择|TT
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AI.png
+    name: AI
+    type: fallback
+    proxies:
+      - 'AI-AUTO'
+      - 'OpenAI'
+      - 'Claude'
+      - 'Gemini'
+      - 'Copilot'
+      - 'Cloudflare'
+      - 'MANUAL'
+    max-failed-times: 2
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
+    name: OpenAI
+    type: fallback
+    proxies:
+      - 'OpenAI-AUTO'
+      - 'Cloudflare'
+      - 'MANUAL'
+    max-failed-times: 2
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Claude.png
+    name: Claude
     type: select
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Urltest.png
+    proxies:
+      - 'OpenAI-AUTO'
+      - 'Cloudflare'
+      - 'MANUAL'
+    max-failed-times: 2
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Gemini.png
+    name: Gemini
+    type: select
+    proxies:
+      - 'Gemini-AUTO'
+      - 'Cloudflare'
+      - 'MANUAL'
+    max-failed-times: 2
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Copilot.png
+    name: Copilot
+    type: fallback
+    proxies:
+      - 'Copilot-AUTO'
+      - 'Cloudflare'
+      - 'MANUAL'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bing.png
+    name: Bing
+    type: select
+    proxies:
+      - 'Copilot'
+      - 'DIRECT'
+      - 'PROXY'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Google.png
+    name: Google
+    type: fallback
+    proxies:
+      - 'PROXY'
+      - 'Gemini'
+      - 'YouTube'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+    name: YouTube
+    type: fallback
+    proxies:
+      - 'YouTube-AUTO'
+      - 'Gemini'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+  - icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/x.png
+    name: Twitter
+    type: fallback
+    proxies:
+      - 'Cloudflare'
+      - 'AI'
+      - 'OpenAI'
+      - 'PROXY'
+      - 'MANUAL'
+      - 'AUTO'
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png
+    name: Cloudflare
+    type: fallback
+    proxies:
+      - 'CF-AUTO'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TikTok.png
+    include-all: false
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    name: TikTok
+    type: select
+    proxies:
+      - 'TK-US-AUTO'
+      - 'TK-JP-AUTO'
+      - 'TK-VN-AUTO'
+      - 'TK-SG-AUTO'
+      - 'TK-TW-AUTO'
+      - 'MANUAL'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Spotify.png
+    name: Spotify
+    type: select
+    proxies:
+      - 'US-AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'PROXY'
+      - 'AUTO'
+      - 'DIRECT'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Telegram.png
+    name: Telegram
+    type: fallback
+    proxies:
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Netflix.png
+    name: Netflix
+    type: select
+    proxies:
+      - 'Netflix-AUTO'
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png
+    name: Disney
+    type: select
+    proxies:
+      - 'Disney-AUTO'
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+    name: Apple
+    type: select
+    proxies:
+      - 'DIRECT'
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+    name: Apple-Intl
+    type: select
+    proxies:
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+      - 'DIRECT'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ForeignMedia.png
+    name: Media-Intl
+    type: select
+    proxies:
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+      - 'DIRECT'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Heart.png
+    name: Adult
+    type: select
+    proxies:
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+      - 'DIRECT'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
+    name: CN
+    type: select
+    proxies:
+      - 'DIRECT'
+      - 'AI'
+      - 'PROXY'
+      - 'MANUAL'
+      - 'AUTO'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+    name: FINAL
+    type: select
+    proxies:
+      - 'PROXY'
+      - 'Cloudflare'
+      - 'AUTO'
+      - 'HK-AUTO'
+      - 'JP-AUTO'
+      - 'US-AUTO'
+      - 'TW-AUTO'
+      - 'SG-AUTO'
+      - 'MANUAL'
+      - 'DIRECT'
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
     name: AUTO
@@ -850,151 +1003,25 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Google.png
-    name: Google
-    type: fallback
-    proxies:
-      - PROXY
-      - Youtube AUTO
-      - Gemini AUTO
-      - AUTO
-      - HK AUTO
-      - JP AUTO
-      - US AUTO
-      - TW AUTO
-      - SG AUTO
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/AI.png
-    name: AI
-    type: fallback
-    proxies:
-      - OpenAI AUTO
-      - Gemini AUTO
-      - Copilot AUTO
-      - AUTO
-      - 手动选择
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
-    name: OpenAI
-    type: fallback
-    proxies:
-      - OpenAI AUTO
-      - Gemini AUTO
-      - Copilot AUTO
-      - AUTO
-      - 手动选择
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Claude.png
-    name: Claude
-    type: select
-    proxies:
-      - OpenAI AUTO
-      - 手动选择
-      - Gemini AUTO
-      - Copilot AUTO
-      - AUTO
-  - icon: https://gh-proxy.org/https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/x.png
-    name: Twitter
-    type: fallback
-    proxies:
-      - CF AUTO
-      - OpenAI AUTO
-      - Gemini AUTO
-      - Copilot AUTO
-      - PROXY
-      - AUTO
-      - HK AUTO
-      - JP AUTO
-      - US AUTO
-      - TW AUTO
-      - SG AUTO
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png
-    name: CF
-    type: fallback
-    proxies:
-      - CF AUTO
-      - OpenAI AUTO
-      - Gemini AUTO
-      - Copilot AUTO
-      - PROXY
-      - AUTO
-      - HK AUTO
-      - JP AUTO
-      - US AUTO
-      - TW AUTO
-      - SG AUTO
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bing.png
-    name: Bing
-    type: select
-    proxies:
-      - Copilot
-      - DIRECT
-      - PROXY
-      - AI
-      - AUTO
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Copilot.png
-    name: Copilot
-    type: fallback
-    proxies:
-      - Copilot AUTO
-      - OpenAI AUTO
-      - Gemini AUTO
-      - AUTO
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TikTok.png
-    include-all: false
-    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    name: TikTok
-    type: select
-    proxies:
-      - TIKTOK-VN
-      - TIKTOK-US
-      - TIKTOK-JP
-      - TIKTOK-SG
-      - TIKTOK-TW
-      - 手动选择|TT
-      - AUTO
-      # - TIKTOK-KR
-      # - TIKTOK-GB
-      # - TIKTOK-CA
-      # - TIKTOK-DE
-      # - TIKTOK-NL
-      # - TIKTOK-RU
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Spotify.png
-    name: Spotify
-    type: select
-    proxies:
-      - US AUTO
-      - HK AUTO
-      - JP AUTO
-      - TW AUTO
-      - SG AUTO
-      - PROXY
-      - DIRECT
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Telegram.png
-    name: Telegram
-    type: fallback
-    proxies:
-      - HK AUTO
-      - JP AUTO
-      - US AUTO
-      - TW AUTO
-      - SG AUTO
-      - AUTO
-      - PROXY
 
   # 关键词筛选
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AI.png
+    include-all: true
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
+    name: AI-AUTO
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://cp.cloudflare.com/generate_204
+    lazy: false
+    max-failed-times: 3
+    expected-status: 204
   - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)
-    name: OpenAI AUTO
+    name: OpenAI-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1006,7 +1033,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
-    name: Gemini AUTO
+    name: Gemini-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1018,7 +1045,19 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bCopilot\b|copilot|\bCP\b)
-    name: Copilot AUTO
+    name: Copilot-AUTO
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://cp.cloudflare.com/generate_204
+    lazy: false
+    max-failed-times: 3
+    expected-status: 204
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png
+    include-all: true
+    exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)(?=.*\bX\b|twitter)
+    name: CF-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1030,7 +1069,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bYoutube\b|youtube|YT|YouTube|流媒体)
-    name: Youtube AUTO
+    name: YouTube-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1038,25 +1077,37 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
     include-all: true
-    exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
-    filter: (?i)(?=.*\bX\b|twitter)
-    name: CF AUTO
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)(?=.*\bNetflix\b|netflix|NF)
+    name: Netflix-AUTO
     type: url-test
     interval: 600
     tolerance: 100
-    url: https://cp.cloudflare.com/generate_204
+    url: https://www.gstatic.com/generate_204
+    lazy: false
+    max-failed-times: 3
+    expected-status: 204
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png
+    include-all: true
+    exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)(?=.*\bDisney\b|disney|D+)
+    name: Disney-AUTO
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://www.gstatic.com/generate_204
     lazy: false
     max-failed-times: 3
     expected-status: 204
 
-  # TikTok地区筛选
+  # TikTok 筛选
   - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])US|TK-US))
-    name: TIKTOK-US
+    name: TK-US-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1068,7 +1119,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])JP|TK-JP))
-    name: TIKTOK-JP
+    name: TK-JP-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1080,7 +1131,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])VN|TK-VN))
-    name: TIKTOK-VN
+    name: TK-VN-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1092,7 +1143,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])SG|TK-SG))
-    name: TIKTOK-SG
+    name: TK-SG-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1104,7 +1155,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])TW|TK-TW))
-    name: TIKTOK-TW
+    name: TK-TW-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1112,65 +1163,13 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  # - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
-  #   include-all: true
-  #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-  #   filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])KR|TK-KR))
-  #   name: TIKTOK-KR
-  #   type: url-test
-  #   interval: 600
-  #   tolerance: 100
-  # - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
-  #   include-all: true
-  #   exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-  #   filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])GB|TK-GB))
-  #   name: TIKTOK-GB
-  #   type: url-test
-  #   interval: 600
-  #   tolerance: 100
 
   # 地区筛选
   - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:HK(?!⁻)|香港|港|Hong\s?Kong)\b
-    name: HK AUTO
-    type: url-test
-    interval: 600
-    tolerance: 100
-    url: https://www.gstatic.com/generate_204
-    lazy: true
-    max-failed-times: 3
-    expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png
-    include-all: true
-    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?<!-)\b(?:TW(?!⁻)|台湾|台|tai)\b
-    name: TW AUTO
-    type: url-test
-    interval: 600
-    tolerance: 100
-    url: https://www.gstatic.com/generate_204
-    lazy: true
-    max-failed-times: 3
-    expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png
-    include-all: true
-    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?<!-)\b(?:SG(?!⁻)|新加坡|新|sin)\b
-    name: SG AUTO
-    type: url-test
-    interval: 600
-    tolerance: 100
-    url: https://www.gstatic.com/generate_204
-    lazy: true
-    max-failed-times: 3
-    expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
-    include-all: true
-    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?<!-)\b(?:JP(?!⁻)|日本|日|JAPAN)\b
-    name: JP AUTO
+    name: HK-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1182,7 +1181,43 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:US(?!⁻)|美国|美|American)\b
-    name: US AUTO
+    name: US-AUTO
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://www.gstatic.com/generate_204
+    lazy: true
+    max-failed-times: 3
+    expected-status: 204
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?<!-)\b(?:TW(?!⁻)|台湾|台|tai)\b
+    name: TW-AUTO
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://www.gstatic.com/generate_204
+    lazy: true
+    max-failed-times: 3
+    expected-status: 204
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?<!-)\b(?:SG(?!⁻)|新加坡|新|sin)\b
+    name: SG-AUTO
+    type: url-test
+    interval: 600
+    tolerance: 100
+    url: https://www.gstatic.com/generate_204
+    lazy: true
+    max-failed-times: 3
+    expected-status: 204
+  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?<!-)\b(?:JP(?!⁻)|日本|日|JAPAN)\b
+    name: JP-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1194,7 +1229,7 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:KR(?!⁻)|韩国|韩|首尔)\b
-    name: KR AUTO
+    name: KR-AUTO
     type: url-test
     interval: 600
     tolerance: 100
@@ -1206,35 +1241,42 @@ proxy-groups:
 # 代理规则
 rules:
   # 域名/URL 规则优先
-  - "RULE-SET,lan,DIRECT"
-  - "RULE-SET,private,DIRECT"
-  - "RULE-SET,unBanAD,DIRECT"
-  - "RULE-SET,ban_ad,REJECT"
-  - "RULE-SET,ban_program_ad,REJECT"
-  - "RULE-SET,tiktok,TikTok"
-  - "RULE-SET,tiktok_external,TikTok"
-  - "RULE-SET,youtube,Youtube AUTO"
-  - "RULE-SET,gemini,Gemini AUTO"
-  - "RULE-SET,openai,OpenAI"
-  - "RULE-SET,copilot,Copilot"
-  - "RULE-SET,claude,Claude"
-  - "RULE-SET,bing,Bing"
-  - "RULE-SET,cloudflare-cn,DIRECT"
-  - "RULE-SET,cloudflare,CF"
-  - "RULE-SET,twitter,Twitter"
-  - "RULE-SET,steam,PROXY"
-  - "RULE-SET,spotify,Spotify"
-  - "RULE-SET,OneDrive,PROXY"
-  - "RULE-SET,telegram_domain,Telegram"
-  - "RULE-SET,google_domain,Google"
-  - "RULE-SET,geolocation-!cn,PROXY"
-  - "RULE-SET,cn_domain,DIRECT"
-  - "RULE-SET,NetEaseMusic,DIRECT"
-  - "RULE-SET,Download,DIRECT"
+  - 'GEOSITE,private,DIRECT'
+  - 'GEOIP,private,DIRECT'
+  - 'GEOSITE,category-ads-all,REJECT'
+  - 'RULE-SET,apple-intelligence,Apple-Intl'
+  - 'RULE-SET,apple-tvplus,Apple-Intl'
+  - 'RULE-SET,youku-intl,Media-Intl'
+  - 'RULE-SET,tencent-intl,Media-Intl'
+  - 'RULE-SET,iqiyi-intl,Media-Intl'
+  - 'GEOSITE,biliintl,Media-Intl'
+  - 'GEOSITE,apple-cn,CN'
+  - 'GEOSITE,apple,Apple'
+  - 'RULE-SET,alipay,CN'
+  - 'RULE-SET,anthropic,Claude'
+  - 'RULE-SET,openai,OpenAI'
+  - 'RULE-SET,google-gemini,Gemini'
+  - 'RULE-SET,copilot,Copilot'
+  - 'RULE-SET,bing,Bing'
+  - 'RULE-SET,twitter,Twitter'
+  - 'GEOSITE,category-ai-!cn,AI'
+  - 'GEOSITE,telegram,Telegram'
+  - 'GEOSITE,spotify,Spotify'
+  - 'GEOSITE,netflix,Netflix'
+  - 'GEOSITE,tiktok,TikTok'
+  - 'GEOSITE,youtube,YouTube'
+  - 'GEOSITE,google,Google'
+  - 'GEOSITE,disney,Disney'
+  - 'GEOSITE,cloudflare,Cloudflare'
+  - 'GEOSITE,github,PROXY'
+  - 'GEOSITE,category-porn,Adult'
+  - 'GEOSITE,cn,DIRECT'
   # IP 规则
-  - "RULE-SET,telegram_ip,Telegram"
-  - "RULE-SET,google_ip,Google"
-  - "RULE-SET,cn_ip,DIRECT"
-  - "GEOIP,CN,DIRECT"
+  - 'GEOIP,twitter,Twitter'
+  - 'GEOIP,telegram,Telegram'
+  - 'GEOIP,spotify,Spotify'
+  - 'GEOIP,google,Google'
+  - 'GEOIP,cloudflare,Cloudflare'
+  - 'GEOIP,cn,DIRECT'
   # 最终兜底
-  - "MATCH,PROXY"
+  - 'MATCH,FINAL'
