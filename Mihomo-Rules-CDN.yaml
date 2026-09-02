@@ -1,5 +1,5 @@
 # update: 2026-09-02 23:36:13
-# repo: https://github.com/sinspired/proxy-rules 定制规则
+# repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
 port: 7890 # HTTP(S) 代理服务器端口
@@ -21,9 +21,9 @@ mode: rule
 
 #自定义 geodata url
 geox-url:
-  geoip: 'https://gh-proxy.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat'
-  geosite: 'https://gh-proxy.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat'
-  mmdb: 'https://gh-proxy.org/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb'
+  geoip: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geoip.dat'
+  geosite: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geosite.dat'
+  mmdb: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@latest/geoip.metadb'
 geo-auto-update: false # 是否自动更新 geodata
 geo-update-interval: 72 # 更新间隔，单位：小时
 
@@ -611,14 +611,14 @@ dns:
 
 rule-providers:
   alipay:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AliPay/AliPay.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AliPay/AliPay.yaml
     path: ./ruleset/alipay.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   extra-direct:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/extra-rules/mihomo/direct.list
+    url: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/extra-rules/mihomo/direct.list
     path: ./ruleset/extra-direct.yaml
     behavior: classical
     interval: 86400
@@ -630,7 +630,7 @@ rule-providers:
     path: ./rule-set/geosite-apple-intelligence.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-intelligence.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple-intelligence.mrs'
     path-in-bundle: 'geo/geosite/apple-intelligence.mrs'
   apple-tvplus:
     behavior: domain
@@ -638,7 +638,7 @@ rule-providers:
     path: ./rule-set/geosite-apple-tvplus.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-tvplus.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple-tvplus.mrs'
     path-in-bundle: 'geo/geosite/apple-tvplus.mrs'
   youku-intl:
     behavior: domain
@@ -646,7 +646,7 @@ rule-providers:
     path: ./rule-set/geosite-youku-intl.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youku@!cn.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youku@!cn.mrs'
     path-in-bundle: 'geo/geosite/youku@!cn.mrs'
   tencent-intl:
     behavior: domain
@@ -654,7 +654,7 @@ rule-providers:
     path: ./rule-set/geosite-tencent-intl.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tencent@!cn.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tencent@!cn.mrs'
     path-in-bundle: 'geo/geosite/tencent@!cn.mrs'
   iqiyi-intl:
     behavior: domain
@@ -662,7 +662,7 @@ rule-providers:
     path: ./rule-set/geosite-iqiyi-intl.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/iqiyi@!cn.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/iqiyi@!cn.mrs'
     path-in-bundle: 'geo/geosite/iqiyi@!cn.mrs'
   anthropic:
     behavior: domain
@@ -670,7 +670,7 @@ rule-providers:
     path: ./rule-set/geosite-anthropic.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/anthropic.mrs'
     path-in-bundle: 'geo/geosite/anthropic.mrs'
   openai:
     behavior: domain
@@ -678,7 +678,7 @@ rule-providers:
     path: ./rule-set/geosite-openai.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs'
     path-in-bundle: 'geo/geosite/openai.mrs'
   google-gemini:
     behavior: domain
@@ -686,10 +686,10 @@ rule-providers:
     path: ./rule-set/geosite-google-gemini.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google-gemini.mrs'
     path-in-bundle: 'geo/geosite/google-gemini.mrs'
   copilot:
-    url: https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
+    url: https://testingcf.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot.yaml
     path: ./ruleset/copilot.yaml
     behavior: classical
     interval: 86400
@@ -701,7 +701,7 @@ rule-providers:
     path: ./rule-set/geosite-bing.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bing.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bing.mrs'
     path-in-bundle: 'geo/geosite/bing.mrs'
   twitter:
     behavior: domain
@@ -709,7 +709,7 @@ rule-providers:
     path: ./rule-set/geosite-twitter.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs'
     path-in-bundle: 'geo/geosite/twitter.mrs'
   tiktok:
     behavior: domain
@@ -717,12 +717,12 @@ rule-providers:
     path: ./rule-set/geosite-tiktok.mrs
     type: http
     format: mrs
-    url: 'https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs'
+    url: 'https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs'
     path-in-bundle: 'geo/geosite/tiktok.mrs'
 
 # 代理组
 proxy-groups:
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Static.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Static.png
     include-all: false
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     name: PROXY
@@ -739,14 +739,14 @@ proxy-groups:
       - 'US-AUTO'
       - 'DIRECT'
     max-failed-times: 3
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Available.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Available.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     name: MANUAL
     type: select
     proxies:
       - AUTO
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AI.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AI.png
     name: AI
     type: fallback
     proxies:
@@ -760,7 +760,7 @@ proxy-groups:
     max-failed-times: 2
     url: 'https://cp.cloudflare.com/generate_204'
     interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/OpenAI.png
     name: OpenAI
     type: fallback
     proxies:
@@ -770,7 +770,7 @@ proxy-groups:
     max-failed-times: 2
     url: 'https://cp.cloudflare.com/generate_204'
     interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Claude.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Claude.png
     name: Claude
     type: select
     proxies:
@@ -778,7 +778,7 @@ proxy-groups:
       - 'Cloudflare'
       - 'MANUAL'
     max-failed-times: 2
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Gemini.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Gemini.png
     name: Gemini
     type: select
     proxies:
@@ -786,21 +786,21 @@ proxy-groups:
       - 'Cloudflare'
       - 'MANUAL'
     max-failed-times: 2
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Copilot.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     name: Copilot
     type: fallback
     proxies:
       - 'Copilot-AUTO'
       - 'Cloudflare'
       - 'MANUAL'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bing.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Bing.png
     name: Bing
     type: select
     proxies:
       - 'Copilot'
       - 'DIRECT'
       - 'PROXY'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Google.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Google.png
     name: Google
     type: fallback
     proxies:
@@ -815,7 +815,7 @@ proxy-groups:
       - 'SG-AUTO'
     url: https://www.gstatic.com/generate_204
     interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     name: YouTube
     type: fallback
     proxies:
@@ -841,7 +841,7 @@ proxy-groups:
       - 'AUTO'
     url: 'https://cp.cloudflare.com/generate_204'
     interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     name: Cloudflare
     type: fallback
     proxies:
@@ -855,7 +855,7 @@ proxy-groups:
       - 'MANUAL'
     url: 'https://cp.cloudflare.com/generate_204'
     interval: 300
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/TikTok.png
     include-all: false
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     name: TikTok
@@ -867,7 +867,7 @@ proxy-groups:
       - 'TK-SG-AUTO'
       - 'TK-TW-AUTO'
       - 'MANUAL'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Spotify.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Spotify.png
     name: Spotify
     type: select
     proxies:
@@ -879,7 +879,7 @@ proxy-groups:
       - 'PROXY'
       - 'AUTO'
       - 'DIRECT'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Telegram.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Telegram.png
     name: Telegram
     type: fallback
     proxies:
@@ -892,7 +892,7 @@ proxy-groups:
       - 'TW-AUTO'
       - 'SG-AUTO'
       - 'MANUAL'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Netflix.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Netflix.png
     name: Netflix
     type: select
     proxies:
@@ -906,7 +906,7 @@ proxy-groups:
       - 'TW-AUTO'
       - 'SG-AUTO'
       - 'MANUAL'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Disney.png
     name: Disney
     type: select
     proxies:
@@ -920,7 +920,7 @@ proxy-groups:
       - 'TW-AUTO'
       - 'SG-AUTO'
       - 'MANUAL'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple.png
     name: Apple
     type: select
     proxies:
@@ -934,7 +934,7 @@ proxy-groups:
       - 'TW-AUTO'
       - 'SG-AUTO'
       - 'MANUAL'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple.png
     name: Apple-Intl
     type: select
     proxies:
@@ -948,7 +948,7 @@ proxy-groups:
       - 'SG-AUTO'
       - 'MANUAL'
       - 'DIRECT'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ForeignMedia.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ForeignMedia.png
     name: Media-Intl
     type: select
     proxies:
@@ -962,7 +962,7 @@ proxy-groups:
       - 'SG-AUTO'
       - 'MANUAL'
       - 'DIRECT'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Heart.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Heart.png
     name: Adult
     type: select
     proxies:
@@ -976,7 +976,7 @@ proxy-groups:
       - 'SG-AUTO'
       - 'MANUAL'
       - 'DIRECT'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/China.png
     name: CN
     type: select
     proxies:
@@ -985,7 +985,7 @@ proxy-groups:
       - 'PROXY'
       - 'MANUAL'
       - 'AUTO'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final.png
     name: FINAL
     type: select
     proxies:
@@ -999,7 +999,7 @@ proxy-groups:
       - 'SG-AUTO'
       - 'MANUAL'
       - 'DIRECT'
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
     name: AUTO
@@ -1012,7 +1012,7 @@ proxy-groups:
     expected-status: 204
 
   # 关键词筛选
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AI.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AI.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
@@ -1024,7 +1024,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/OpenAI.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)
@@ -1036,7 +1036,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/sinspired/proxy-rules/main/ico/Gemini.png
+  - icon: https://testingcf.jsdelivr.net/gh/sinspired/proxy-rules@main/ico/Gemini.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
@@ -1048,7 +1048,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Copilot.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Copilot.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bCopilot\b|copilot|\bCP\b)
@@ -1060,7 +1060,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|⁻|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bX\b|twitter)
@@ -1072,7 +1072,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bYoutube\b|youtube|YT|YouTube|流媒体)
@@ -1084,7 +1084,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Netflix.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bNetflix\b|netflix|NF)
@@ -1096,7 +1096,7 @@ proxy-groups:
     lazy: false
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Disney.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)(?=.*\bDisney\b|disney|D+)
@@ -1110,7 +1110,7 @@ proxy-groups:
     expected-status: 204
 
   # TikTok 筛选
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])US|TK-US))
@@ -1122,7 +1122,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])JP|TK-JP))
@@ -1134,7 +1134,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])VN|TK-VN))
@@ -1146,7 +1146,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])SG|TK-SG))
@@ -1158,7 +1158,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+  - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)^(?=.*TK|tiktok)(?=.*(?:(?:^|[^-])TW|TK-TW))
@@ -1172,7 +1172,7 @@ proxy-groups:
     expected-status: 204
 
   # 地区筛选
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:HK(?!⁻)|香港|港|Hong\s?Kong)\b
@@ -1184,7 +1184,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/US.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/US.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:US(?!⁻)|美国|美|American)\b
@@ -1196,7 +1196,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/TW.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:TW(?!⁻)|台湾|台|tai)\b
@@ -1208,7 +1208,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/SG.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:SG(?!⁻)|新加坡|新|sin)\b
@@ -1220,7 +1220,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/JP.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:JP(?!⁻)|日本|日|JAPAN)\b
@@ -1232,7 +1232,7 @@ proxy-groups:
     lazy: true
     max-failed-times: 3
     expected-status: 204
-  - icon: https://gh-proxy.org/https://raw.githubusercontent.com/Orz-3/mini/master/Color/KR.png
+  - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/KR.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?<!-)\b(?:KR(?!⁻)|韩国|韩|首尔)\b
