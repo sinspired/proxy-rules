@@ -1,0 +1,11 @@
+# 支持的格式：
+#   - RULE-SET,rule1,REJECT
+#   - IP-ASN,1,PROXY
+#   - DOMAIN-REGEX,^abc,DIRECT
+#   - DOMAIN-SUFFIX,baidu.com,DIRECT
+#   - DOMAIN-KEYWORD,google,ss1
+#   - DOMAIN-WILDCARD,test.*.mihomo.com,ss1
+#   - IP-CIDR,1.1.1.1/32,ss1
+#   - IP-CIDR6,2409::/64,DIRECT
+payload:
+  - DOMAIN-SUFFIX,yfamilys.com
