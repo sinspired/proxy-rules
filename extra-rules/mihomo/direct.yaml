@@ -9,3 +9,6 @@
 #   - IP-CIDR6,2409::/64,DIRECT
 payload:
   - DOMAIN-SUFFIX,yfamilys.com
+  - DOMAIN-SUFFIX,meituan.net
+  - DOMAIN-KEYWORD,meituan
+  - DOMAIN,maplocatesdksnapshot.d.meituan.net
