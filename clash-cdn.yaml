@@ -1,4 +1,4 @@
-# update: 2026-10-01 11:33:17
+# update: 2026-10-16 16:25:56
 # repo: https://github.com/sinspired/proxy-rules 定制规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
@@ -568,6 +568,15 @@ dns:
     - quic://223.5.5.5:853
     - https://dns.alidns.com/dns-query#h3=true
     - https://doh.pub/dns-query#h3=true
+
+  proxy-server-nameserver-policy:
+    +.local: system
+    +.baidu.com: 223.5.5.5
+    +.cloudflre.com: 1.1.1.1
+    +.github.com: 223.5.5.5
+    +.githubusercontent.com: 223.5.5.5
+    +.node.daacc.org: https://ddhjiadji6959dadaa.daacc.org/dns-query
+
   direct-nameserver:
     - quic://223.5.5.5:853
     - quic://223.6.6.6:853
