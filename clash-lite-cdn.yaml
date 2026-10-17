@@ -1,4 +1,4 @@
-# update: 2026-10-16 16:25:52
+# update: 2026-10-17 11:41:53
 # repo: https://github.com/sinspired/proxy-rules 定制规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
@@ -1025,7 +1025,7 @@ proxy-groups:
   - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AI.png
     include-all: true
     exclude-filter: (?i)Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
-    filter: (?i)(?=.*\bOpenai\b|openai|chatgpt|gpt|GPT)(?=.*\bGemini\b|gemini|GEMINI|\bGM\b)
+    filter: (?i)(?=.*(?:openai|chatgpt|gpt|GPT⁺))(?=.*(?:gemini|GM))
     name: AI-AUTO
     type: url-test
     interval: 600
