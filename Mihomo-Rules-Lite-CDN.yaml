@@ -1,4 +1,4 @@
-# update: 2026-11-12 14:23:05
+# update: 2026-11-12 14:35:31
 # repo: https://github.com/sinspired/subs-check-pro 内置规则
 
 log-level: error # 日志等级 silent/error/warning/info/debug
@@ -811,7 +811,7 @@ proxy-groups:
       - 'PROXY'
   - icon: https://testingcf.jsdelivr.net/gh/Orz-3/mini@master/Color/Google.png
     name: Google
-    type: fallback
+    type: select
     proxies:
       - 'YouTube'
       - 'PROXY'
@@ -826,7 +826,7 @@ proxy-groups:
     interval: 300
   - icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     name: YouTube
-    type: fallback
+    type: select
     proxies:
       - 'YouTube-AUTO'
       - 'YouTube-CN'
